@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 
 class SongsList extends Component {
   renderSongs() {
+    console.table(this.props.data.songs);
     return this.props.data.songs.map(song => {
       return(
         <li key={song.id} className="collection-item">
@@ -12,7 +13,7 @@ class SongsList extends Component {
       )
     });
   }
-  
+
   render() {
     if(this.props.data.loading) {
       return(
