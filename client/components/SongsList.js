@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import gql from 'graphql-tag';
 import { graphql } from "react-apollo";
+import { Link } from "react-router";
+import fetchSongs from './../queries/fetchSongs';
 
 class SongsList extends Component {
   renderSongs() {
-    console.table(this.props.data.songs);
     return this.props.data.songs.map(song => {
       return(
         <li key={song.id} className="collection-item">
@@ -23,20 +23,19 @@ class SongsList extends Component {
     else {
       return (
         <div>
-          {this.renderSongs()}
+          <Link to="/" className="btn-floating btn-large right">
+            <i className="material-icons">back</i>
+          </Link>
+          <ul>
+            {this.renderSongs()}
+          </ul>
+          <Link to="/songs/new" className="btn-floating btn-large red right">
+            <i className="material-icons">add</i>
+          </Link>
         </div>
       )
     }
   }
 }
 
-const songsQuery = gql`
-{
-  songs{
-    id
-    title
-  }
-}
-`;
-
-export default graphql(songsQuery)(SongsList);
+export default graphql(fetchSongs)(SongsList);
