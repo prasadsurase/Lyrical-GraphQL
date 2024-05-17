@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { Link } from "react-router";
+import likeLyricMutation from "../queries/likeLyric";
 
 class LyricsList extends Component{
   constructor(props){
     super(props)
+  }
+
+  onLyricLike(id) {
+    this.props.mutate({
+      variables: {
+        id: id
+      }
+    });
   }
 
   renderLyrics() {
@@ -12,7 +21,8 @@ class LyricsList extends Component{
       return (
         <li key={id} className="collection-item">
           {content}
-          <i onClick={() => this.onLyricLike(id)} className="material-icons">like</i>
+          <i onClick={() => this.onLyricLike(id)} className="material-icons">thumb_up</i>
+          {likes}
         </li>
       )
     });
@@ -30,4 +40,4 @@ class LyricsList extends Component{
   }
 }
 
-export default LyricsList;
+export default graphql(likeLyricMutation)(LyricsList);
